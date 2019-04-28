@@ -7,16 +7,16 @@
         <li class="nav-item">
             <router-link class="nav-link" to="/about">About</router-link>
         </li>
-
-
-        <li class="nav-item">
-            <a class="nav-link" href="#">Discover
-                <span class="sr-only">(current)</span>
-            </a>
+         <li class="nav-item">
+            <router-link class="nav-link" to="/profile">Profile</router-link>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Profile</a>
+            <router-link class="nav-link" to="/register">Register</router-link>
         </li>
+        <li class="nav-item">
+            <router-link class="nav-link" to="/login">Login</router-link>
+        </li>
+
         <li class="nav-item dropdown">
             <a class="nav-link" href="#" id="navbar-primary_dropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Settings</a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-primary_dropdown_1">
