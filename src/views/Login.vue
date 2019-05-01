@@ -12,12 +12,24 @@
         </div>
         <div class="container pt-lg-md">
             <div class="row justify-content-center">
-                <div class="col-lg-5">
+
+            <div class="col-lg-5">
                     <card type="secondary" shadow
                           header-classes="bg-white pb-5"
                           body-classes="px-lg-5 py-lg-5"
                           class="border-0">
+
+                        <template v-if="user != null">
+                            <p><strong>name:</strong> {{ user.name }}</p>
+                            <button type="button" class="btn btn-secondary" v-on:click="logout">Logout</button>
+                        </template>
+                        <template v-else>
+                            <button type="button" class="btn btn-primary" v-on:click="login">Login with uPort</button>
+                        </template>
+
                         <template>
+                            <br/>
+                            <br/>
                             <div class="text-muted text-center mb-3">
                                 <small>Sign in with</small>
                             </div>
@@ -75,7 +87,47 @@
     </section>
 </template>
 <script>
-export default {};
+
+    //import 'babel-polyfill'
+    //import Vue from 'vue/dist/vue.esm.js'
+    import { Connect } from 'uport-connect'
+
+    export default {
+
+        data: {
+            user: null,
+        },
+        methods: {
+            login: function() {
+                const uport = new Connect('MyDApp')
+                /*const connect = new Connect(yourAppName, {
+                network: 'rinkeby'
+                })*/
+                //let app = this
+                uport.requestDisclosure()
+                //uport.requestCredentials()
+
+                uport.onResponse('disclosureReq').then(res => {
+                    const did = res.payload.did;
+
+                    const address = uport.address;
+                    const provider = uport.getProvider();
+                    console.log('DID = ', did);
+                    console.log('ADDRESS = ', address);
+                    console.log('PROVIDER = ', provider);
+                    if (uport.did) {
+                        console.log('Already connected, reference docs to see data which will be available')
+                        alert('Welcome Thomas! - You are now logged into the Ethereum Blockchain!')
+                    } else {
+                        console.log('Create a request if necessary')
+                    }
+                })
+            },
+            logout: function() {
+                this.user = null
+            },
+        },
+    };
 </script>
 <style>
 </style>
