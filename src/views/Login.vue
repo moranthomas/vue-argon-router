@@ -88,36 +88,40 @@
 </template>
 <script>
 
-    //import 'babel-polyfill'
-    //import Vue from 'vue/dist/vue.esm.js'
     import { Connect } from 'uport-connect'
 
     export default {
 
-        data: {
-            user: null,
+        data() {
+            return { user : null  }
         },
         methods: {
             login: function() {
+                // By default it is configured on the Rinkeby test network
                 const uport = new Connect('MyDApp')
-                /*const connect = new Connect(yourAppName, {
-                network: 'rinkeby'
+
+               // TO-DO: connect to the local ganache blockchain
+               /*const uport = new Connect('MyDApp', {
+                    network: ''mainnet''
                 })*/
-                //let app = this
+
                 uport.requestDisclosure()
-                //uport.requestCredentials()
 
                 uport.onResponse('disclosureReq').then(res => {
                     const did = res.payload.did;
-
                     const address = uport.address;
                     const provider = uport.getProvider();
+
                     console.log('DID = ', did);
                     console.log('ADDRESS = ', address);
                     console.log('PROVIDER = ', provider);
+
                     if (uport.did) {
-                        console.log('Already connected, reference docs to see data which will be available')
-                        alert('Welcome Thomas! - You are now logged into the Ethereum Blockchain!')
+                        localStorage.setItem("authenticated", "true")
+                        alert('Welcome! - You are now authenticated on the Ethereum Blockchain!')
+                        this.$router.push({
+                            path: "/profile"
+                        });
                     } else {
                         console.log('Create a request if necessary')
                     }

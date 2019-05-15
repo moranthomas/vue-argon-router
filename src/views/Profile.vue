@@ -19,7 +19,7 @@
                             <div class="col-lg-3 order-lg-2">
                                 <div class="card-profile-image">
                                     <a href="#">
-                                        <img v-lazy="'img/theme/team-4-800x800.jpg'" class="rounded-circle">
+                                        <img v-lazy="'img/theme/team-3-800x800.jpg'" class="rounded-circle">
                                     </a>
                                 </div>
                             </div>
@@ -47,12 +47,12 @@
                             </div>
                         </div>
                         <div class="text-center mt-5">
-                            <h3>Hayley Anne Moran
-                                <span class="font-weight-light"> - 7.5 years old</span>
+                            <h3>Satashi Nakamoto
+                                <span class="font-weight-light"> - 45 years old</span>
                             </h3>
-                            <div class="h6 font-weight-300"><i class="ni location_pin mr-2"></i>Mountfield, Malahide</div>
-                            <div class="h6 mt-4"><i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer</div>
-                            <div><i class="ni education_hat mr-2"></i>University of Computer Science</div>
+                            <div class="h6 font-weight-300"><i class="ni location_pin mr-2"></i>Dublin, Ireland</div>
+                            <div class="h6 mt-4"><i class="ni business_briefcase-24 mr-2"></i>Blockchain Enthusiast and Bitcoin Inventor</div>
+                            <div><i class="ni education_hat mr-2"></i>University of Tokyo - Computer Science</div>
                         </div>
                         <div class="mt-5 py-5 border-top text-center">
                             <div class="row justify-content-center">

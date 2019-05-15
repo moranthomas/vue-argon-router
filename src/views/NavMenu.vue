@@ -4,9 +4,9 @@
         <li class="nav-item">
             <router-link class="nav-link" to="/">Home</router-link>
         </li>
-        <li class="nav-item">
+        <!--<li class="nav-item">
             <router-link class="nav-link" to="/about">About</router-link>
-        </li>
+        </li>-->
          <li class="nav-item">
             <router-link class="nav-link" to="/profile">Profile</router-link>
         </li>
@@ -16,6 +16,7 @@
         <li class="nav-item">
             <router-link class="nav-link" to="/login">Login</router-link>
         </li>
+
 
         <li class="nav-item dropdown">
             <a class="nav-link" href="#" id="navbar-primary_dropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Settings</a>
@@ -58,10 +59,24 @@
             </a>
         </li>
 
+        <li class="nav-item">
+             <a class="nav-link nav-link-icon" href="/login"  @click="logout()">Logout</a>
+        </li>
+
     </ul>
 </template>
 <script>
-export default {};
+    export default {
+        methods: {
+            logout: function() {
+                alert('logging out')
+                localStorage.setItem("authenticated", "false")
+                this.$router.push({
+                    path: "/login"
+                });
+            }
+        }
+    };
 </script>
 <style>
 </style>
