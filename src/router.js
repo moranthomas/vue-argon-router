@@ -14,6 +14,8 @@ router.beforeEach((to, from, next) => {
 
   // A logged in user should get redirected to / on site if trying to access Registration, Password Reset or Login Page
   const bAuthenticated = Boolean(JSON.parse(localStorage.getItem("authenticated")));
+  console.log("Authenticated? -> " + bAuthenticated)
+  console.log("Router to.fullPath -> " + to.fullPath)
 
   if (bAuthenticated) {
     if (
@@ -28,13 +30,13 @@ router.beforeEach((to, from, next) => {
   }
 
   // A non-logged in user should be redirected to / when trying to access the Profile page
-  /*if (!bAuthenticated) {
+  if (!bAuthenticated) {
     if (to.fullPath.startsWith("/profile")) {
       router.push({
         path: "/"
       });
     }
-  }*/
+  }
 
   next();
 });
