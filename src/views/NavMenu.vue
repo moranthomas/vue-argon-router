@@ -69,7 +69,7 @@
     export default {
         methods: {
             logout: function() {
-                alert('logging out')
+                console.log('logging out')
                 localStorage.setItem("authenticated", "false")
                 this.$router.push({
                     path: "/login"
