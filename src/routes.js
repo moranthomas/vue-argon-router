@@ -12,7 +12,6 @@ export const routes = [
         name: 'home',
         style: 'glyphicon glyphicon-home'
     },
-    //{ path: '/store/store-main', component: StoreMain, display: 'Counter', style: 'glyphicon glyphicon-education' },
     {
         path: '/login',
         name: 'login',
@@ -34,6 +33,10 @@ export const routes = [
         path: '/profile',
         name: 'profile',
         component: () => import( /* webpackChunkName: "profile" */ './views/Profile.vue')
+    }, {
+        path: '/transactions',
+        name: 'transactions',
+        component: () => import( /* webpackChunkName: "profile" */ './views/Transactions.vue')
     }, {
         path: '/register',
         name: 'register',

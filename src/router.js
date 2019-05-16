@@ -43,7 +43,15 @@ router.beforeEach((to, from, next) => {
       });
       next({ path: "/login"  });  // go to '/login';
     }
-      next(); // allow to enter route specified in the requested url
+    if (to.fullPath.startsWith("/transactions")) {
+      router.push({
+        path: "/"
+      });
+      next({
+        path: "/login"
+      }); // go to '/login';
+    }
+    next(); // allow to enter route specified in the requested url
   }
 
 
