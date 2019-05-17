@@ -19,7 +19,8 @@
                             <div class="col-lg-3 order-lg-2">
                                 <div class="card-profile-image">
                                     <a href="#">
-                                        <img v-lazy="'img/theme/team-3-800x800.jpg'" class="rounded-circle">
+                                        <img :src="getImgUrl()" v-bind:alt="pic" class="rounded-circle">
+                                        <!--<img v-lazy="'img/theme/team-3-800x800.jpg'" class="rounded-circle">-->
                                     </a>
                                 </div>
                             </div>
@@ -53,6 +54,8 @@
                             <div class="h6 font-weight-300"><i class="ni location_pin mr-2"></i>Dublin, Ireland</div>
                             <div class="h6 mt-4"><i class="ni business_briefcase-24 mr-2"></i>Blockchain Enthusiast and Bitcoin Inventor</div>
                             <div><i class="ni education_hat mr-2"></i>University of Tokyo - Computer Science</div>
+                           <!-- <base-input disabled ref="didRef" id="did" type="text" :title=getProfileInfo()></base-input>-->
+                            <!--<div><i class="ni education_hat mr-2" ref="didRef"></i></div> -->
                         </div>
                         <div class="mt-5 py-5 border-top text-center">
                             <div class="row justify-content-center">
@@ -69,7 +72,52 @@
     </div>
 </template>
 <script>
-export default {};
+
+    import { Connect } from 'uport-connect'
+
+    export default {
+        data() {
+            return {
+
+            }
+        },
+        methods: {
+            getProfileInfo: function () {
+                let did = localStorage.getItem("did")
+                this.$refs.didRef.value = did
+            },
+            getImgUrl: function() {
+                //Now get it from uport profile
+                const uport = new Connect('MyDApp')
+                let imgUrl;
+
+                //uport.requestDisclosure()
+
+                uport.onResponse('disclosureReq').then(res => {
+
+                    const did = res.payload.did;
+
+
+
+                    if(uport.getImgUrl) {
+                        imgUrl = uport.getImgUrl
+                    }
+                    else {
+                        imgUrl = "/img/theme/team-3-800x800.jpg";
+                    }
+                    /*if (uport.did) {
+                        localStorage.setItem("authenticated", "true")
+                    } else {
+                        console.log('Create a request if necessary')
+                    }*/
+                    return imgUrl;
+                })
+
+                imgUrl = "/img/theme/team-3-800x800.jpg";
+                return imgUrl;
+            }
+        }
+    };
 </script>
 <style>
 </style>

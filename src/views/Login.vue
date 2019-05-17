@@ -118,6 +118,7 @@
 
                     if (uport.did) {
                         localStorage.setItem("authenticated", "true")
+                        localStorage.setItem("did", uport.did)
                         alert('Welcome! - You are now authenticated on the Ethereum Blockchain!')
                         this.$router.push({
                             path: "/profile"
