@@ -1,39 +1,128 @@
 <template>
     <div class="container">
 
+
+
+
+
         <h2> Account Transactions (Web3.js) </h2>
         <hr>
-        <label for="name" class="col-lg-2 control-label"><h4> Node</h4></label>
-        <button  @click="getNodeInfoClicked">Get Node Info</button>
-        <p>Node Info :  <input class="node-input" ref="NodeInfoInputField" id="NodeInfo" type="text"> </p>
-		<hr>
 
-
-        <label for="name" class="col-lg-2 control-label"><h4>Balance</h4></label>
-        <button ref="popAccounts" id="popAccounts" @click="populateAccountsClicked">Populate Accounts</button>
-
-        <span>Choose Account : {{ selected }} </span><span>&nbsp;</span>
-        <select id="accountsDropdown" ref="accountsDropdownRef" v-model="selected" v-on:change="onChange">
-            <option v-for="(item, key) in accounts" :value="key">
-                {{item}}
-            </option>
-        </select>
-        </br>
-        </br>
-		<p>Selected Account : <input id="Account" ref="accountRef" type="text"> </input>
-        <div>
-            <p>Balance : <input id="Balance" ref="balanceRef" type="text"></p>
-		    <button ref="checkBalance" id="checkBalance" @click="checkBalanceClicked">Check Balance</button>
+        <div>    <!-- Grid Div -->
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="name" class="col-lg-2 control-label"><h4> Node</h4></label>
+                </div>
+                <div class="col-md-8">
+                    <button  @click="getNodeInfoClicked">Get Node Info</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                     <p>Node Info :  </p>
+                </div>
+                <div class="col-md-8">
+                    <base-input disabled ref="NodeInfoInputField" id="NodeInfo" type="text"></base-input>
+                </div>
+            </div>
         </div>
 
-		<hr>
-		<label for="name" class="col-lg-2 control-label"><h4>Transfer</h4></label>
-		<p>From:<input id="From" type="text"> </p>
-		<p>To:<input id="To" type="text"> </p>
-        <p>Amount:<input id="Amount" type="text"></p>
-        <button id="Transfer">Transfer</button>
-        <p>Transaction Hash :<span id="Tx"></span></p>
 
+        <hr>
+        <div>    <!-- Grid Div -->
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="name" class="col-lg-2 control-label"><h4>Balance</h4></label>
+                </div>
+                <div class="col-md-8">
+                    <button ref="popAccounts" id="popAccounts" @click="populateAccountsClicked">Populate Accounts</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <span>Choose Account : {{ selected }} </span><span>&nbsp;</span>
+                </div>
+                <div class="col-md-8">
+                    <select id="accountsDropdown" ref="accountsDropdownRef" v-model="selected" v-on:change="onChange">
+                        <option v-for="(item, key) in accounts" :value="key">
+                            {{item}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            </br>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>Selected Account : </p>
+                    <!--<base-input placeholder="" :valid="true"></base-input> -->
+                </div>
+                <div class="col-md-6">
+                    <input id="Account" ref="accountRef" type="text"> </input>
+                </div>
+            </div>
+             <div class="row">
+                <div class="col-md-6">
+                     <button ref="checkBalance" id="checkBalance" @click="checkBalanceClicked">Check Balance</button>
+                </div>
+                <div class="col-md-6">
+                  <p>Balance : <input id="Balance" ref="balanceRef" type="text"></p>
+                </div>
+            </div>
+
+            <div>
+        </div>
+        </div>
+
+        <hr>
+
+        <div>    <!-- Grid Div -->
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="name" class="col-lg-2 control-label"><h4>Transfer</h4></label>
+                </div>
+                <div class="col-md-6">
+                   <p>&nbsp;</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                     <p>From:<input ref="fromRef" id="From" type="text"> </p>
+                </div>
+            </div>
+            <div class="row">
+                 <div class="col-md-12">
+                    <p>To:<input id="To" ref="toRef" type="text"> </p>
+                </div>
+            </div>
+              <div class="row">
+                 <div class="col-md-6">
+                   <p>Amount:<input id="Amount" ref="amountRef" type="text"></p>
+                </div>
+                <div class="col-md-6">
+                    <button id="Transfer" @click="transferFunds">Transfer</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <p>Transaction Hash : </p>
+                </div>
+                <div class="col-md-8">
+                    <input id="Tx" ref="txHashRef" type="text"> </input>
+                </div>
+            </div>
+                        <div class="row">
+                <div class="col-md-4">
+                    <p>Result : </p>
+                </div>
+                <div class="col-md-8">
+                    <base-input disabled ref="resultRef" id="Result" type="text"></base-input>
+                    <!--<input id="Result" ref="resultRef" type="text"></input>-->
+                </div>
+            </div>
+
+        </div>
+
+        <hr>
     </div>
 
 </template>
@@ -123,10 +212,36 @@
             onChange: function (event) {
                 var index = event.srcElement.value;
                 this.$refs.accountRef.value = event.srcElement[index].label
-            }
-        }
-    }
+            },
+            transferFunds: function () {
+                const _from = this.$refs.fromRef.value
+                const _to = this.$refs.toRef.value
+                const _amount = this.$refs.amountRef.value
+                let self = this
+                var txnObject = {
+                    "from":_from,
+                    "to": _to,
+                    "value": web3.utils.toWei(_amount,'ether'),
+                    // "gas": 21000,         (optional)
+                    // "gasPrice": 4500000,  (optional)
+                    // "data": 'For testing' (optional)
+                    // "nonce": 10           (optional)
+                }
 
+                web3.eth.sendTransaction(txnObject, function(error, result){
+                    if(error){
+                        console.log( "Transaction error" ,error);
+                        self.$refs.resultRef.value = "Transaction Failed"
+                    }
+                    else{
+                        //Get transaction hash
+                        self.$refs.txHashRef.value = result;
+                        self.$refs.resultRef.value = "Transaction Succeeded!"
+                    }
+                });
+            },
+        },
+    }
 </script>
 
 
@@ -161,8 +276,9 @@ label {
 }
 input {
     padding:10px;
-    width: 50%;
+    width: 100%;
     margin-bottom: 1em;
+    border-color: #2dce89;
 }
 .node-input{
     width: 70%;
