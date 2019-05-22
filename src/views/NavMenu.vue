@@ -2,16 +2,16 @@
     <ul class="navbar-nav ml-lg-auto">
 
 
-        <li class="nav-item">
-            <router-link class="nav-link" to="/login">Login</router-link>
+        <li class="nav-item" v-if="this.isAuthenticated==='false'">
+            <router-link class="nav-link" to="/login" @click="login()">Login</router-link>
         </li>
         <li class="nav-item">
             <router-link class="nav-link" to="/">Home</router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-if="this.isAuthenticated==='true'">
             <router-link class="nav-link" to="/profile">Profile</router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-if="this.isAuthenticated==='true'">
             <router-link class="nav-link" to="/transactions">Transactions</router-link>
         </li>
 
@@ -40,8 +40,8 @@
             </a>
         </li>
 
-        <li class="nav-item">
-             <a class="nav-link nav-link-icon" href="/login"  @click="logout()">Logout</a>
+        <li class="nav-item" v-if="this.isAuthenticated==='true'">
+             <a class="nav-link" href="/login"  @click="logout()">Logout</a>
         </li>
 
     </ul>
@@ -56,6 +56,20 @@
                 this.$router.push({
                     path: "/login"
                 });
+            },
+
+             login: function() {
+                console.log('logging in')
+
+                this.$router.push({
+                    path: "/login"
+                });
+            },
+
+        },
+        computed: {
+            isAuthenticated() {
+                return localStorage.getItem("authenticated");
             }
         }
     };
