@@ -8,11 +8,14 @@
                   :type="menu.type"
                   effect="dark"
                   expand
-                  title="Brand Logo"
+                  title="Ethereum Developers Meetup"
                   class="mt-4 lead text-white"
                   :content-id="`navbar-${menu.type}`">
-            <component :is="menu.menuComponent"></component>
+        <img src="../public/img/eth-logo.jpg" width="50px" height="50px"/>
+        <component :is="menu.menuComponent"></component>
+
         </base-nav>
+
       </section>
     </div>
     <router-view/>

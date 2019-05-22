@@ -1,16 +1,21 @@
 <template>
-    <div class="container">
+    <div class="trn-container">
 
-        <h2> Account Transactions (Web3.js) </h2>
+        <div class="row">
+                <div class="col-md-8">
+                     <h2> Account Transactions (Web3.js) </h2>
+                </div>
+                <div class="col-md-4">
+                   <div>Network:
+                        <select id="networksDropdown" ref="networksDropdownRef" v-model="selected" v-on:change="onChangeNetwork">
+                        <option v-for="(item, key) in networks" :value="key">
+                                {{item}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
         <hr>
-
-        <div class="nav-link">Network:
-            <select id="networksDropdown" ref="networksDropdownRef" v-model="selected" v-on:change="onChangeNetwork">
-            <option v-for="(item, key) in networks" :value="key">
-                    {{item}}
-                </option>
-            </select>
-        </div>
 
         <div>    <!-- Grid Div -->
             <div class="row">
@@ -260,14 +265,11 @@
 
 
 <style>
-body {
+
+.trn-body {
     background-color:#F0F0F0;
     padding: 2em;
     font-family: 'Raleway','Source Sans Pro', 'Arial';
-}
-.container {
-    width: 50%;
-    margin: 0 auto;
 }
 
 label {
@@ -291,6 +293,15 @@ button {
     padding: 1em 4em;
     display:block;
 }
+
+.trn-container {
+    width: 60%;
+    margin: 0 auto;
+    padding-right: 15px;
+    padding-left: 15px;
+    max-width: 1040px;
+}
+
 
 #instructor {
     padding:1em;
