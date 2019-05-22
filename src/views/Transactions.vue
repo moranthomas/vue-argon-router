@@ -1,12 +1,16 @@
 <template>
     <div class="container">
 
-
-
-
-
         <h2> Account Transactions (Web3.js) </h2>
         <hr>
+
+        <div class="nav-link">Network:
+            <select id="networksDropdown" ref="networksDropdownRef" v-model="selected" v-on:change="onChangeNetwork">
+            <option v-for="(item, key) in networks" :value="key">
+                    {{item}}
+                </option>
+            </select>
+        </div>
 
         <div>    <!-- Grid Div -->
             <div class="row">
@@ -139,7 +143,8 @@
         data () {
             return {
                 selected: '0',
-                accounts: []
+                accounts: [],
+                networks: ['metamask', 'ganache', 'rinkeby', 'infura']
             }
         },
         mounted() {
@@ -152,9 +157,13 @@
                 const infuraUrl = "http://mainnet.infura.io/v3/53dbf207e63c42e99cacb63c2d41ec4f";
                 const ganacheUrl = "http://localhost:8545";
 
-                const local = true;
-                if(local) {
+                const chosenNetwork = localStorage.getItem('selectedNetwork');
+
+                if(chosenNetwork === "ganache") {
                     web3Provider = new Web3.providers.HttpProvider(ganacheUrl);
+                }
+                else if (chosenNetwork === "infura") {
+                    web3Provider = new Web3.providers.HttpProvider(infuraUrl);
                 }
                 else {
                     // Modern dapp browsers...
@@ -213,6 +222,11 @@
                 var index = event.srcElement.value;
                 this.$refs.accountRef.value = event.srcElement[index].label
             },
+            onChangeNetwork: function (event) {
+                var index = event.srcElement.value;
+                localStorage.setItem('selectedNetwork', event.srcElement[index].label )
+                this.loadWeb3Provider();
+            },
             transferFunds: function () {
                 const _from = this.$refs.fromRef.value
                 const _to = this.$refs.toRef.value
@@ -255,18 +269,6 @@ body {
     width: 50%;
     margin: 0 auto;
 }
-
-/*label{
-    display: inline-block;
-    float: left;
-    clear: left;
-    width: 250px;
-    text-align: right;
-}
-input {
-  display: inline-block;
-  float: left;
-}*/
 
 label {
     display: block;

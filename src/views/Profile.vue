@@ -19,7 +19,7 @@
                             <div class="col-lg-3 order-lg-2">
                                 <div class="card-profile-image">
                                     <a href="#">
-                                        <img :src="getImgUrl()" v-bind:alt="pic" class="rounded-circle">
+                                        <img :src="getImgUrl()"  class="rounded-circle">
                                         <!--<img v-lazy="'img/theme/team-3-800x800.jpg'" class="rounded-circle">-->
                                     </a>
                                 </div>
@@ -97,23 +97,20 @@
             }
         },
         mounted() {
-            this.loadWeb3Provider();
-            this.getProfileInfo();
+            //this.loadWeb3Provider();  -> for dynamic change via dropdown
+            this.getDidInfo();
         },
         methods: {
-            getProfileInfo: function () {
+            getDidInfo: function () {
 
                 const uport = new Connect('MyDApp')
-                let self = this;
-                uport.requestDisclosure()
+                let did = localStorage.getItem("did")
+                this.$refs.didRef.value = did
 
                 //Get DID from uport profile
-                uport.onResponse('disclosureReq').then(res => {
-                    const did = res.payload.did;
-                    self.$refs.didRef.value = did
-                });
+                // uport.requestDisclosure()
 
-                // get an error here that requestCredentials is not a function
+                // with uport-connect v.1.0.x get an error here that requestCredentials is not a function
                 /*uport.requestCredentials({
                     requested: ["name", "avatar", "country"],
                     notifications: true
@@ -127,28 +124,17 @@
                 //Now get it from uport profile
                 const uport = new Connect('MyDApp')
                 let imgUrl;
-                let self = this;
 
-                uport.requestDisclosure()
-
-                uport.onResponse('disclosureReq').then(res => {
-                    const did = res.payload.did;
-                    //let did = localStorage.getItem("did")
-                    self.$refs.didRef.value = did
-
+                // uport.requestDisclosure()
+                // uport.onResponse('disclosureReq').then(res => {
                     if(uport.getImgUrl) {
                         imgUrl = uport.getImgUrl
                     }
                     else {
                         imgUrl = "/img/theme/team-3-800x800.jpg";
                     }
-                    /*if (uport.did) {
-                        localStorage.setItem("authenticated", "true")
-                    } else {
-                        console.log('Create a request if necessary')
-                    }*/
                     return imgUrl;
-                })
+               // })
 
                 imgUrl = "/img/theme/team-3-800x800.jpg";
                 return imgUrl;
