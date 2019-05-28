@@ -241,7 +241,7 @@
                     "from":_from,
                     "to": _to,
                     "value": web3.utils.toWei(_amount,'ether'),
-                    // "gas": 21000,         (optional)
+                    "gas": 1000,         //(optional)
                     // "gasPrice": 4500000,  (optional)
                     // "data": 'For testing' (optional)
                     // "nonce": 10           (optional)

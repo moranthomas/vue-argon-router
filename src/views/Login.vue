@@ -99,11 +99,10 @@
             login: function() {
                 // By default it is configured on the Rinkeby test network
                 const uport = new Connect('MyDApp')
+                const self = this;
 
                // TO-DO: connect to the local ganache blockchain
-               /*const uport = new Connect('MyDApp', {
-                    network: ''mainnet''
-                })*/
+               /*const uport = new Connect('MyDApp', {  network: 'localhost:8545'  })*/
 
                 uport.requestDisclosure()
 
@@ -116,13 +115,15 @@
                     console.log('ADDRESS = ', address);
                     console.log('PROVIDER = ', provider);
 
-                    if (uport.did) {
+
+                   if (uport.did) {
                         localStorage.setItem("authenticated", "true")
                         localStorage.setItem("did", uport.did)
-                        alert('Welcome! - You are now authenticated on the Ethereum Blockchain!')
-                        this.$router.push({
+                        //self.$root.$forceUpdate();
+                        self.$router.push({
                             path: "/profile"
                         });
+                        //next();
                     } else {
                         console.log('Create a request if necessary')
                     }

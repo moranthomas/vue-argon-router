@@ -3,7 +3,8 @@
 
 
         <li class="nav-item" v-if="this.isAuthenticated==='false'">
-            <router-link class="nav-link" to="/login" @click="login()">Login</router-link>
+            <a class="nav-link" href="/login"  @click="login()">Login</a>
+            <!--<router-link class="nav-link" to="/login" @click="login()">Login</router-link>-->
         </li>
         <li class="nav-item">
             <router-link class="nav-link" to="/">Home</router-link>

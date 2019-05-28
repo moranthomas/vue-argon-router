@@ -30,6 +30,14 @@ router.beforeEach((to, from, next) => {
     {
       next({ path: "/" });  // go to '/';
     }
+    else if (to.fullPath.startsWith("/profile")) {
+        //alert('to.fullPath = ' + to.fullPath)
+        /*router.push({
+          path: "/"
+        });*/
+        next();
+        //refresh
+    }
     else{
       next(); // allow to enter route specified in the requested url
     }
